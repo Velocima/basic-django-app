@@ -27,7 +27,9 @@ def index(request):
   return render(request, 'movies/index.html')
 
 def show(request, id):
-  return HttpResponse('<h1>Hello Movies!</h1>')
+  if id <= 0 or id >= len(movies):
+    return HttpResponse('<h1>Movie not found</h1>')
+  return render(request, 'movies/movie.html', context={"movie": movies[id - 1]})
 
 def about(request):
   return render(request, 'movies/about.html')
