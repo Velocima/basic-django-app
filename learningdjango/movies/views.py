@@ -30,4 +30,4 @@ def show(request, id):
   return HttpResponse('<h1>Hello Movies!</h1>')
 
 def about(request):
-  return HttpResponse('<h1>About Movies!</h1>')
+  return render(request, 'movies/about.html')
