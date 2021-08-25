@@ -1,7 +1,6 @@
-{% extends 'movies/base.html' %} {% block content %} {% load static %}
-<head>
-	<link rel="stylesheet" href="{% static 'movies/index.css' %}" />
-</head>
+{% extends 'movies/base.html' %} {% load static %} {% block extra_style %}
+<link rel="stylesheet" href="{% static 'movies/index.css' %}" />
+{% endblock extra_style %} {% block content %}
 <h1>Movies are awesome!</h1>
 <ul>
 	{% for movie in movies %}
