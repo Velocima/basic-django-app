@@ -24,10 +24,10 @@ movies = [
 
 # Create your views here.
 def index(request):
-  return render(request, 'movies/index.html')
+  return render(request, 'movies/index.html', context={"movies": movies})
 
 def show(request, id):
-  if id <= 0 or id >= len(movies):
+  if id <= 0 or id > len(movies):
     return HttpResponse('<h1>Movie not found</h1>')
   return render(request, 'movies/movie.html', context={"movie": movies[id - 1]})
 
