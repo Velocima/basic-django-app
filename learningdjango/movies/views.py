@@ -40,8 +40,10 @@ def movie_genres(request):
   return render(request, 'movies/genres.html', context={"genres": genres, 'is_manager': is_member(request.user)})
 
 @login_required
-def movie_genres_show(request):
-  pass
+def movie_genres_show(request, genre_id):
+  movies = Movie.objects.filter(genre=genre_id)
+  return render(request, 'movies/index.html', context={"movies": movies, 'is_manager': False})
+
 
 def add_genre(request):
   if not is_member(request.user):
@@ -50,7 +52,7 @@ def add_genre(request):
     new_genre_data = AddGenreForm(request.POST)
     if new_genre_data.is_valid():
       new_genre_data.save()
-      return redirect('movies-index')
+      return redirect('movies-genre')
   else:
     form = AddGenreForm()
     return render(request, 'movies/create.html', context={'form': form, 'submit_value': "Add Genre"})
