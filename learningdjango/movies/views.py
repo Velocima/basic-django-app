@@ -1,35 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
+from .models import Movie
 
-movies = [
-  {
-    "id": 1,
-    "title": "The Dark Knight",
-    "year_of_release": 2008,
-    "genre": "Action"
-  },
-  {
-    "id": 2,
-    "title": "The Notebook",
-    "year_of_release": 2004,
-    "genre": "Romance"
-  },
-  {
-    "id": 3,
-    "title": "Pulp Fiction",
-    "year_of_release": 1994,
-    "genre": "Crime"
-  },
-]
 
 # Create your views here.
 def index(request):
+  movies = Movie.objects.all()
   return render(request, 'movies/index.html', context={"movies": movies})
 
 def show(request, id):
-  if id <= 0 or id > len(movies):
-    return HttpResponse('<h1>Movie not found</h1>')
-  return render(request, 'movies/movie.html', context={"movie": movies[id - 1]})
+  movie = get_object_or_404(Movie, pk=id)
+  return render(request, 'movies/movie.html', context={"movie": movie})
 
 def about(request):
   return render(request, 'movies/about.html')
