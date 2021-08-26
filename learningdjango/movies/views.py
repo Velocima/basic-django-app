@@ -28,4 +28,16 @@ def create(request):
       return redirect('movies-show', id=new_movie.id)
   else:
     form = AddMovieForm()
-    return render(request, 'movies/create.html', context={'form': form})
+    return render(request, 'movies/create.html', context={'form': form, 'submit_value': "Add Movie" })
+
+def add_genre(request):
+  if not is_member(request.user):
+    return HttpResponseForbidden()
+  if request.method == 'POST':
+    new_genre_data = AddGenreForm(request.POST)
+    if new_genre_data.is_valid():
+      new_genre_data.save()
+      return redirect('movies-index')
+  else:
+    form = AddGenreForm()
+    return render(request, 'movies/create.html', context={'form': form, 'submit_value': "Add Genre"})
