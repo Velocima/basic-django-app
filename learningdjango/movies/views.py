@@ -1,7 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import AddGenreForm, AddMovieForm
 from .models import Movie
+
+
 
 def is_member(user):
     return user.groups.filter(name='Manager').exists()
@@ -11,6 +14,7 @@ def index(request):
   movies = Movie.objects.all()
   return render(request, 'movies/index.html', context={"movies": movies, 'is_manager': is_member(request.user)})
 
+@login_required
 def show(request, id):
   movie = get_object_or_404(Movie, pk=id)
   return render(request, 'movies/movie.html', context={"movie": movie})
