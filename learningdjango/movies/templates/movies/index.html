@@ -9,4 +9,10 @@
 	</li>
 	{% endfor %}
 </ul>
+
+<section>
+{% if is_manager %}
+	<button><a href={% url 'movies-new' %}>Add Movie</a></button>
+{% endif %}
+</section>
 {% endblock content %}
