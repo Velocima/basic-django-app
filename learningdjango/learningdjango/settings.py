@@ -52,6 +52,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'learningdjango.urls'
+LOGIN_REDIRECT_URL = 'movies-index'
+LOGIN_URL = 'login'
 
 TEMPLATES = [
     {
