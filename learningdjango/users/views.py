@@ -1,12 +1,17 @@
 from django.shortcuts import redirect, render
+from django.contrib.auth import authenticate, login
 from .forms import UserRegistrationForm
 # Create your views here.
 
 def signup(request):
   if request.method == "POST":
-    new_user = UserRegistrationForm(request.POST)
-    if new_user.is_valid():
-      new_user.save()
+    form_data = UserRegistrationForm(request.POST)
+    if form_data.is_valid():
+      form_data.save()
+      new_user = authenticate(username=form_data.cleaned_data['username'],
+                              password=form_data.cleaned_data['password1'],
+                              )
+      login(request, new_user)
       return redirect('movies-index')
   else:
     form = UserRegistrationForm()
