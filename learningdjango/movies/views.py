@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import AddGenreForm, AddMovieForm
-from .models import Movie
+from .models import Genre, Movie
 
 
 
@@ -33,6 +33,15 @@ def create(request):
   else:
     form = AddMovieForm()
     return render(request, 'movies/create.html', context={'form': form, 'submit_value': "Add Movie" })
+
+@login_required
+def movie_genres(request):
+  genres = Genre.objects.all()
+  return render(request, 'movies/genres.html', context={"genres": genres, 'is_manager': is_member(request.user)})
+
+@login_required
+def movie_genres_show(request):
+  pass
 
 def add_genre(request):
   if not is_member(request.user):

@@ -3,16 +3,16 @@
 {% endblock extra_style %} {% block content %}
 <h1>Movies are awesome!</h1>
 <ul>
-	{% for movie in movies %}
+	{% for genre in genres %}
 	<li>
-		<a href="{% url 'movies-show' id=movie.id %}"> {{movie.title}} </a>
+		<a href="{% url 'movies-genre-show' genre_id=genre.genre %}"> {{genre.genre}} </a>
 	</li>
 	{% endfor %}
 </ul>
 
 <section>
 {% if is_manager %}
-	<button><a href={% url 'movies-new' %}>Add Movie</a></button>
+	<button><a href={% url 'movies-genre-new' %}>Add Genre</a></button>
 {% endif %}
 </section>
 {% endblock content %}
